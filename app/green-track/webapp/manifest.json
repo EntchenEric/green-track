@@ -98,12 +98,23 @@
           "target": [
             "TargetGreen-Track"
           ]
+        },
+        {
+          "name": "RouteDashboard",
+          "pattern": "dashboard",
+          "target": [
+            "TargetDashboard"
+          ]
         }
       ],
       "targets": {
         "TargetGreen-Track": {
           "id": "Green-Track",
           "name": "Green-Track"
+        },
+        "TargetDashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
         }
       }
     },

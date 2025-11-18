@@ -3,5 +3,8 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <App id="app">
+        <Page id="appPage" title="App">
+            <Button text="Go to Dashboard" press="onNavToDashboard" />
+        </Page>
     </App>
 </mvc:View>

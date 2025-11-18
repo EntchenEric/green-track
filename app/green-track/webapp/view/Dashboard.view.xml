@@ -1,0 +1,5 @@
+<mvc:View controllerName="greentrack.controller.Dashboard" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page id="dashboardPage" title="Dashboard" showNavButton="true" navButtonPress="onNavBack">
+        <!-- Add your UI controls here -->
+    </Page>
+</mvc:View>
