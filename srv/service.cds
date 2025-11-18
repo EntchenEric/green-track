@@ -32,6 +32,6 @@ service greenTrackSrv {
   @cds.redirection.target
   entity Routes as projection on my.Routes;
 
-  @odata.draft.enabled
-  entity GlobalDashboard as projection on my.GlobalDashboard;
+  //@odata.draft.enabled
+  //entity GlobalDashboard as projection on my.GlobalDashboard;
 }

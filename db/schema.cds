@@ -89,10 +89,3 @@ entity Routes : cuid, managed {
     orders        : Association to many PurchaseOrders on orders.assignedRoute = $self;
 }
 
-view GlobalDashboard as select from Routes {
-    key 'GLOBAL'       as ID : String,
-    sum(co2Saved)      as totalCO2Saved : Decimal(15, 2),
-    sum(actualCO2)     as totalFootprint : Decimal(15, 2),
-    sum(totalDistance) as totalDistance : Decimal(15, 2),
-    count(*)           as totalRoutes : Integer
-} where status = 'Completed';
