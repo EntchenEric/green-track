@@ -1,0 +1,4 @@
+ID;createdAt;createdBy;modifiedAt;modifiedBy;settingKey;value;description
+s1000000-0000-0000-0000-000000000001;2025-01-01T00:00:00Z;system;2025-01-01T00:00:00Z;system;BASELINE_VAN_CO2;260.00;Standard CO2 emissions (g/km) for a diesel delivery van (competitor avg).
+s1000000-0000-0000-0000-000000000002;2025-01-01T00:00:00Z;system;2025-01-01T00:00:00Z;system;BASELINE_TRUCK_CO2;1050.00;Standard CO2 emissions (g/km) for a 40t diesel truck (competitor avg).
+s1000000-0000-0000-0000-000000000003;2025-01-01T00:00:00Z;system;2025-01-01T00:00:00Z;system;CARBON_TAX_RATE;45.00;Current Carbon Tax in EUR per ton of CO2.

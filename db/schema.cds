@@ -1,74 +1,98 @@
 namespace GreenTrack;
 
-entity Article {
-    ID   : Integer @sap.cds.auto.increment: true;
-    name : String(100);
+using { cuid, managed, Country, Currency } from '@sap/cds/common';
+
+entity SystemSettings : cuid, managed {
+    key settingKey : String(50);
+    value          : Decimal(10, 2);
+    description    : String(255);
 }
 
-entity OrderItem {
-    ID     : Integer @sap.cds.auto.increment: true;
-    order  : Association to PurchaseOrder;
-    article: Association to Article;
+entity Products : cuid, managed {
+    name        : String(100);
+    description : String(500);
+    weightKG    : Decimal(10, 2);
+    price       : Decimal(10, 2);
+    currency    : Currency;
 }
 
-entity PurchaseOrderOrder {
-    ID    : Integer @sap.cds.auto.increment: true;
-    order : Association to PurchaseOrder;
+entity Customers : cuid, managed {
+    name           : String(100);
+    email          : String(255);
+    primaryAddress : Composition of Addresses;
+    orders         : Association to many PurchaseOrders on orders.customer = $self;
 }
 
-entity PurchaseOrder {
-    ID                 : Integer @sap.cds.auto.increment: true;
-    orderItems         : Association to many OrderItem;
-    purchaseOrderOrder : Association to many PurchaseOrderOrder;
-    customer           : Association to Customer;
-}
-
-entity Customer {
-    ID      : Integer @sap.cds.auto.increment: true;
-    name    : String(100);
-    address : Association to Address;
-}
-
-entity Address {
-    ID       : Integer @sap.cds.auto.increment: true;
+entity Addresses : cuid, managed {
     street   : String(100);
     houseNo  : String(10);
     city     : String(100);
-    postCode : String(5);
-    country  : String(100);
-    customer : Association to Customer;
+    postCode : String(20);
+    country  : Country;
 }
 
-entity Driver {
-    ID          : Integer @sap.cds.auto.increment: true;
+entity Drivers : cuid, managed {
+    firstName     : String(100);
+    lastName      : String(100);
+    licenseNumber : String(50);
+    certificates  : Association to many Certificates on certificates.driver = $self;
+}
+
+entity Certificates : cuid, managed {
+    name      : String(100);
+    validFrom : Date;
+    validTo   : Date;
+    type      : String(50) enum { License; Safety; Hazmat; EcoDriving };
+    driver    : Association to Drivers;
+    vehicle   : Association to Vehicles;
+}
+
+entity Vehicles : cuid, managed {
+    licensePlate      : String(20);
+    vehicleType       : Association to VehicleTypes;
+    status            : String(20) enum { Active; Maintenance; Retired };
+    co2EmissionsFull  : Decimal(10, 2);
+    co2EmissionsEmpty : Decimal(10, 2);
+    maxCapacityWeight : Decimal(10, 2);
+    certificates      : Association to many Certificates on certificates.vehicle = $self;
+}
+
+entity VehicleTypes : cuid {
     name        : String(100);
-    certificates: Association to many Certificat;
+    description : String(255);
+    vehicles    : Association to many Vehicles on vehicles.vehicleType = $self;
 }
 
-entity Certificat {
-    ID      : Integer @sap.cds.auto.increment: true;
-    name    : String(100);
-    vehicle : Association to Vehicle;
-    driver  : Association to Driver;
+entity PurchaseOrders : cuid, managed {
+    orderNumber   : String(20);
+    customer      : Association to Customers;
+    status        : String(20) enum { New; Planned; Shipped; Delivered; Cancelled };
+    items         : Composition of many OrderItems on items.order = $self;
+    assignedRoute : Association to Routes;
 }
 
-entity Vehicle {
-    ID                 : Integer @sap.cds.auto.increment: true;
-    licencePlate       : String(100);
-    co_2EmissionsFull  : Decimal(10, 2);
-    co_2EmissionsEmpty : Decimal(10, 2);
-    maxCapacity        : Decimal(10, 2);
-    certificates       : Association to many Certificat;
-    vehicleType        : Association to VehicleType;
+entity OrderItems : cuid {
+    order    : Association to PurchaseOrders;
+    product  : Association to Products;
+    quantity : Integer;
 }
 
-entity VehicleType {
-    ID       : Integer @sap.cds.auto.increment: true;
-    name     : String(100);
-    vehicles : Association to many Vehicle;
+entity Routes : cuid, managed {
+    routeDate     : Date;
+    status        : String(20) enum { Planned; InProgress; Completed };
+    driver        : Association to Drivers;
+    vehicle       : Association to Vehicles;
+    totalDistance : Decimal(10, 2);
+    actualCO2     : Decimal(10, 2);
+    baselineCO2   : Decimal(10, 2);
+    co2Saved      : Decimal(10, 2);
+    orders        : Association to many PurchaseOrders on orders.assignedRoute = $self;
 }
 
-entity RoutePlanner {
-    ID       : Integer @sap.cds.auto.increment: true;
-    vehicle  : Association to Vehicle;
-}
+view GlobalDashboard as select from Routes {
+    key 'GLOBAL'       as ID : String,
+    sum(co2Saved)      as totalCO2Saved : Decimal(15, 2),
+    sum(actualCO2)     as totalFootprint : Decimal(15, 2),
+    sum(totalDistance) as totalDistance : Decimal(15, 2),
+    count(*)           as totalRoutes : Integer
+} where status = 'Completed';
