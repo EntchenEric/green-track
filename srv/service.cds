@@ -4,35 +4,36 @@ using { GreenTrack as my } from '../db/schema.cds';
 @requires: 'authenticated-user'
 service greenTrackSrv {
   @odata.draft.enabled
-  entity Addresses as projection on my.Address;
+  entity Addresses as projection on my.Addresses;
 
   @odata.draft.enabled
-  entity Drivers as projection on my.Driver;
+  entity Drivers as projection on my.Drivers;
 
   @odata.draft.enabled
-  entity Certificates as projection on my.Certificat;
+  entity Certificates as projection on my.Certificates;
 
   @odata.draft.enabled
-  entity Vehicles as projection on my.Vehicle;
+  entity Vehicles as projection on my.Vehicles;
 
   @odata.draft.enabled
-  entity Articles as projection on my.Article;
+  entity Products as projection on my.Products;
 
   @odata.draft.enabled
-  entity OrderItems as projection on my.OrderItem;
+  entity OrderItems as projection on my.OrderItems;
 
   @odata.draft.enabled
-  entity PurchaseOrderOrders as projection on my.PurchaseOrderOrder;
+  entity PurchaseOrders as projection on my.PurchaseOrders;
 
   @odata.draft.enabled
-  entity PurchaseOrders as projection on my.PurchaseOrder;
+  entity Customers as projection on my.Customers;
 
   @odata.draft.enabled
-  entity Customers as projection on my.Customer;
+  entity VehicleTypes as projection on my.VehicleTypes;
 
   @odata.draft.enabled
-  entity VehicleTypes as projection on my.VehicleType;
+  @cds.redirection.target
+  entity Routes as projection on my.Routes;
 
   @odata.draft.enabled
-  entity RoutePlanners as projection on my.RoutePlanner;
+  entity GlobalDashboard as projection on my.GlobalDashboard;
 }
