@@ -1,9 +1,206 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <mvc:View
+    controllerName="greentrack.controller.Routenoptimierung"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    controllerName="greentrack.controller.Routenoptimierung">
-    <Page showNavButton="true" navButtonPress="onNavBack" title="Routenoptimierung">
-        <!-- Add your UI controls here -->
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:form="sap.ui.layout.form"
+    displayBlock="true">
+
+    <Page 
+        showNavButton="true" 
+        navButtonPress="onNavBack" 
+        title="Routen-Simulation &amp; Optimierung"
+        backgroundDesign="List">
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+                
+                <Panel expandable="true" expanded="true" headerText="Routen-Parameter" width="auto" class="sapUiSmallMarginBottom">
+                    <layout:Grid defaultSpan="L3 M6 S12" vSpacing="1">
+                        <VBox>
+                            <Label text="Startpunkt" design="Bold"/>
+                            <Input value="Logistikzentrum Berlin-Süd" icon="sap-icon://map-2" />
+                        </VBox>
+                        <VBox>
+                            <Label text="Zielort" design="Bold"/>
+                            <Input value="München, Messegelände" icon="sap-icon://map" />
+                        </VBox>
+                        <VBox>
+                            <Label text="Fahrzeugtyp" design="Bold"/>
+                            <Select width="100%" selectedKey="ev">
+                                <core:Item key="ev" text="E-LKW (7.5t) - GreenFleet"/>
+                                <core:Item key="diesel" text="Diesel LKW (12t)"/>
+                                <core:Item key="hybrid" text="Hybrid Transporter"/>
+                            </Select>
+                        </VBox>
+                        <VBox justifyContent="End">
+                            <Button text="Route berechnen" type="Emphasized" icon="sap-icon://search" width="100%"/>
+                        </VBox>
+                    </layout:Grid>
+                </Panel>
+
+                <f:GridContainer snapToRow="true">
+                    <f:layout>
+                        <f:GridContainerSettings rowSize="80px" columnSize="20rem" gap="1rem" />
+                    </f:layout>
+
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData rows="7" columns="1" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header 
+                                title="Option A: Schnellste Route" 
+                                subtitle="Autobahn A9 (Fokus Zeit)" 
+                                iconSrc="sap-icon://shipping-status"
+                                statusText="Standard" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiContentPadding" height="100%" justifyContent="SpaceBetween">
+                                
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiMediumMarginBottom">
+                                    <VBox>
+                                        <Label text="Fahrzeit" />
+                                        <Title text="5h 45min" level="H1" class="sapUiTinyMarginBottom"/>
+                                        <ObjectStatus text="Schnellste Option" state="Success" icon="sap-icon://history"/>
+                                    </VBox>
+                                    <mc:RadialMicroChart size="M" percentage="100" valueColor="Neutral" tooltip="Basis-Referenz"/>
+                                </HBox>
+
+                                <List separatorStyle="None">
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="Distanz" />
+                                            <Text text="585 km" />
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="CO₂-Ausstoß" design="Bold" />
+                                            <ObjectNumber number="145" unit="kg" state="Error" />
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="Gesamtkosten" />
+                                            <ObjectNumber number="412,50" unit="EUR" />
+                                        </HBox>
+                                    </CustomListItem>
+                                     <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="Mautgebühren" />
+                                            <Text text="85,00 EUR" />
+                                        </HBox>
+                                    </CustomListItem>
+                                </List>
+
+                                <Button text="Option A wählen" type="Transparent" width="100%" class="sapUiSmallMarginTop"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card class="sapUiBorderSuccess">
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData rows="7" columns="1" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header 
+                                title="Option B: GreenTrack Route" 
+                                subtitle="Optimierte Streckenführung" 
+                                iconSrc="sap-icon://energy-saving-lightbulb"
+                                statusText="Empfohlen" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiContentPadding" height="100%" justifyContent="SpaceBetween">
+                                
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiMediumMarginBottom">
+                                    <VBox>
+                                        <Label text="Fahrzeit" />
+                                        <Title text="6h 10min" level="H1" class="sapUiTinyMarginBottom"/>
+                                        <ObjectStatus text="+ 25min Toleranz" state="Warning" icon="sap-icon://lateness"/>
+                                    </VBox>
+                                    <VBox alignItems="Center">
+                                        <mc:RadialMicroChart size="M" percentage="72" valueColor="Good" />
+                                        <Label text="-28% CO₂" design="Bold" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                </HBox>
+
+                                <List separatorStyle="None">
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="Distanz" />
+                                            <Text text="562 km (-23 km)" />
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="CO₂-Ausstoß" design="Bold" />
+                                            <ObjectNumber number="104" unit="kg" state="Success" emphasized="true" />
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="Gesamtkosten" design="Bold"/>
+                                            <ObjectNumber number="365,00" unit="EUR" state="Success" />
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                            <Label text="Ersparnis" />
+                                            <ObjectStatus text="- 47,50 EUR" state="Success" icon="sap-icon://money-bills" />
+                                        </HBox>
+                                    </CustomListItem>
+                                </List>
+
+                                <Button text="GreenTrack Route aktivieren" type="Emphasized" width="100%" class="sapUiSmallMarginTop"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card>
+                         <f:layoutData>
+                            <f:GridContainerItemLayoutData rows="4" columns="2" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="Detail-Analyse" subtitle="Warum ist Route B besser?" iconSrc="sap-icon://competitor" />
+                        </f:header>
+                        <f:content>
+                             <layout:Grid defaultSpan="L4 M4 S12" class="sapUiContentPadding">
+                                <VBox class="sapUiSmallMarginBottom">
+                                    <Title text="Stau-Risiko" level="H5" class="sapUiTinyMarginBottom"/>
+                                    <mc:BulletMicroChart size="S" scale="%" targetValue="100" forecastValue="80" showValue="true" press="press">
+                                        <mc:actual>
+                                            <mc:BulletMicroChartData value="20" color="Good" tooltip="Eco Route"/>
+                                            <mc:BulletMicroChartData value="65" color="Error" tooltip="Standard Route"/>
+                                        </mc:actual>
+                                    </mc:BulletMicroChart>
+                                    <Label text="Eco umfährt Staukreuz Nürnberg" size="Small" class="sapUiTinyMarginTop"/>
+                                </VBox>
+
+                                <VBox class="sapUiSmallMarginBottom">
+                                    <Title text="Höhenprofil" level="H5" class="sapUiTinyMarginBottom"/>
+                                    <ProgressIndicator percentValue="30" displayValue="Flach (Eco)" state="Success" />
+                                    <ProgressIndicator percentValue="70" displayValue="Steigung (Standard)" state="Warning" class="sapUiTinyMarginTop" />
+                                </VBox>
+
+                                <VBox class="sapUiSmallMarginBottom">
+                                    <Title text="Ladestopps (EV)" level="H5" class="sapUiTinyMarginBottom"/>
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://charging-station" color="#2B7D2B" class="sapUiTinyMarginEnd"/>
+                                        <Text text="2 Stopps (Schnelllader)"/>
+                                    </HBox>
+                                    <Label text="Optimiert für 80% Batterie" size="Small"/>
+                                </VBox>
+                             </layout:Grid>
+                        </f:content>
+                    </f:Card>
+
+                </f:GridContainer>
+            </VBox>
+        </content>
     </Page>
 </mvc:View>
