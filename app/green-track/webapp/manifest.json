@@ -95,7 +95,7 @@
       "routes": [
         {
           "name": "RouteGreen-Track",
-          "pattern": ":?query:",
+          "pattern": "greenTrack",
           "target": [
             "TargetGreen-Track"
           ]
