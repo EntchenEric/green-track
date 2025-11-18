@@ -1,0 +1,183 @@
+<mvc:View
+    controllerName="greentrack.controller.Routenoptimierung"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:mc="sap.suite.ui.microchart"
+    displayBlock="true">
+
+    <Page 
+        showNavButton="true" 
+        navButtonPress="onNavBack" 
+        title="Routen-Optimierung"
+        backgroundDesign="List">
+
+        <content>
+            <VBox class="sapUiLargeMargin">
+                
+                <f:Card class="sapUiMediumMarginBottom">
+                    <f:content>
+                        <VBox class="sapUiLargeMargin">
+                            <Title text="Optimierung konfigurieren" titleStyle="H3" class="sapUiMediumMarginBottom"/>
+                            
+                            <layout:Grid defaultSpan="L4 M12 S12" vSpacing="2" hSpacing="2">
+                                <VBox>
+                                    <Label text="Startpunkt (Hub)" design="Bold" class="sapUiTinyMarginBottom"/>
+                                    <Input value="{view>/config/startPoint}" icon="sap-icon://home" height="3rem" editable="false"/>
+                                </VBox>
+                                
+                                <VBox>
+                                    <Label text="Aufträge wählen" design="Bold" class="sapUiTinyMarginBottom"/>
+                                    <MultiComboBox 
+                                        placeholder="Aufträge selektieren..." 
+                                        width="100%"
+                                        selectionFinish="onOrdersSelected">
+                                        <core:Item key="O1" text="Auftrag #4020 - Innenstadt (5kg)"/>
+                                        <core:Item key="O2" text="Auftrag #4021 - Fußgängerzone (12kg)"/>
+                                        <core:Item key="O3" text="Auftrag #4055 - Industriegebiet (800kg)"/>
+                                        <core:Item key="O4" text="Auftrag #4090 - Vorstadt (Express)"/>
+                                    </MultiComboBox>
+                                </VBox>
+
+                                <HBox alignItems="End">
+                                    <VBox width="70%" class="sapUiSmallMarginEnd">
+                                        <Label text="Verfügbare Flotte" design="Bold" class="sapUiTinyMarginBottom"/>
+                                        <Select width="100%" selectedKey="{view>/config/fleet}">
+                                            <core:Item key="mix" text="Auto-Split (LKW + Bikes)"/>
+                                            <core:Item key="truck" text="Nur LKW (Konsolidiert)"/>
+                                        </Select>
+                                    </VBox>
+                                    <Button text="Route berechnen" type="Emphasized" width="30%" icon="sap-icon://search" press="onCalculate"/>
+                                </HBox>
+                            </layout:Grid>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+
+                <layout:Grid defaultSpan="L6 M6 S12" hSpacing="2" vSpacing="2">
+
+                    <f:Card height="auto">
+                        <f:header>
+                            <card:Header 
+                                title="Option A: Sammel-Tour" 
+                                subtitle="1x Diesel LKW (Alle Stopps)" 
+                                iconSrc="sap-icon://shipping-status"
+                                statusText="{view>/results/optionA/status}" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiLargeMargin" justifyContent="SpaceBetween">
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiLargeMarginBottom">
+                                    <VBox>
+                                        <Label text="Gesamtkosten" class="sapUiTinyMarginBottom"/>
+                                        <ObjectNumber number="{view>/results/optionA/cost}" unit="EUR" state="None" class="sapMObjectNumberLarge" />
+                                    </VBox>
+                                    <ObjectStatus text="{view>/results/optionA/status}" state="{view>/results/optionA/statusState}" inverted="true" class="sapUiSmallMarginTop"/>
+                                </HBox>
+
+                                <List separatorStyle="None" class="sapUiMediumMarginBottom">
+                                    <CustomListItem class="sapUiSmallMarginBottom">
+                                        <HBox alignItems="Center">
+                                            <core:Icon src="sap-icon://shipping-status" class="sapUiMediumMarginEnd" size="1.5rem"/>
+                                            <VBox>
+                                                <Title text="Diesel 7.5t LKW" level="H5"/>
+                                                <Label text="Fährt in Innenstadt &amp; Industriegebiet" size="Small"/>
+                                            </VBox>
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <MessageStrip text="LKW muss in Umweltzone einfahren (Hohe Gebühren)." type="Warning" showIcon="true" class="sapUiSmallMarginTop"/>
+                                    </CustomListItem>
+                                </List>
+                                
+                                <VBox class="sapUiSmallMarginTop">
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Label text="CO₂-Ausstoß" />
+                                        <Text text="{view>/results/optionA/co2}" state="{view>/results/optionA/co2State}"/>
+                                    </HBox>
+                                </VBox>
+
+                                <Button text="Sammel-Tour wählen" width="100%" class="sapUiMediumMarginTop"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card height="auto" class="sapUiBorderSuccess" visible="{view>/results/optionB/visible}">
+                        <f:header>
+                            <card:Header 
+                                title="Option B: Smart Split" 
+                                subtitle="Aufteilung auf 2 Fahrzeuge" 
+                                iconSrc="sap-icon://choropleth-chart"
+                                statusText="Empfohlen" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiLargeMargin" justifyContent="SpaceBetween">
+                                
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiLargeMarginBottom">
+                                    <VBox>
+                                        <Label text="Gesamtkosten" design="Bold" class="sapUiTinyMarginBottom"/>
+                                        <ObjectNumber 
+                                            number="{view>/results/optionB/cost}" 
+                                            unit="EUR" 
+                                            state="Success" 
+                                            class="sapMObjectNumberLarge" 
+                                            emphasized="true"/>
+                                        <Label text="- {view>/results/optionB/savings} € gespart" state="Success" design="Bold" class="sapUiTinyMarginTop"/>
+                                    </VBox>
+                                    <mc:RadialMicroChart size="S" percentage="{view>/results/optionB/percent}" valueColor="Good" tooltip="Ersparnis"/>
+                                </HBox>
+
+                                <Label text="Fahrzeug-Zuteilung:" design="Bold" class="sapUiTinyMarginBottom"/>
+                                <List separatorStyle="None" class="sapUiMediumMarginBottom" backgroundDesign="Transparent">
+                                    
+                                    <CustomListItem class="sapUiTinyMarginBottom">
+                                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginTopBottom">
+                                            <HBox alignItems="Center" width="60%">
+                                                <core:Icon src="sap-icon://bicycle" class="sapUiMediumMarginEnd" color="#2B7D2B" size="1.5rem"/>
+                                                <VBox>
+                                                    <Title text="E-Cargo Bike" level="H6"/>
+                                                    <Label text="Innenstadt-Route" size="Small"/>
+                                                </VBox>
+                                            </HBox>
+                                            <VBox alignItems="End">
+                                                <ObjectStatus text="Auftrag #4020" state="Success" icon="sap-icon://accept"/>
+                                                <ObjectStatus text="Auftrag #4021" state="Success" icon="sap-icon://accept"/>
+                                            </VBox>
+                                        </HBox>
+                                    </CustomListItem>
+                                    
+                                    <CustomListItem class="sapUiTinyMarginBottom">
+                                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginTopBottom">
+                                            <HBox alignItems="Center" width="60%">
+                                                <core:Icon src="sap-icon://cargo-train" class="sapUiMediumMarginEnd" color="#0050b3" size="1.5rem"/>
+                                                <VBox>
+                                                    <Title text="E-Transporter" level="H6"/>
+                                                    <Label text="Außenbezirk" size="Small"/>
+                                                </VBox>
+                                            </HBox>
+                                            <VBox alignItems="End">
+                                                <ObjectStatus text="Auftrag #4055" state="Information" icon="sap-icon://accept"/>
+                                            </VBox>
+                                        </HBox>
+                                    </CustomListItem>
+
+                                </List>
+
+                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                    <Label text="CO₂-Ausstoß" />
+                                    <Text text="{view>/results/optionB/co2}" />
+                                </HBox>
+
+                                <Button text="Split-Route aktivieren" type="Emphasized" width="100%" icon="sap-icon://forward" class="sapUiMediumMarginTop"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                </layout:Grid>
+                
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

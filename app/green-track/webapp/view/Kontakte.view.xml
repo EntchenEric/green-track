@@ -1,0 +1,182 @@
+<mvc:View
+    controllerName="greentrack.controller.Kontakte"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page 
+        showNavButton="true" 
+        navButtonPress="onNavBack" 
+        title="Mitarbeiter-Verzeichnis"
+        backgroundDesign="List">
+
+        <content>
+            <Table inset="false" sticky="ColumnHeaders" class="sapUiSmallMarginTop" growing="true" growingThreshold="20">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Gesamtes Team (58)" level="H2"/>
+                        <ToolbarSpacer/>
+                        <SearchField width="25%" placeholder="Namen suchen..."/>
+                        <Button icon="sap-icon://sort" tooltip="Sortieren"/>
+                        <Button icon="sap-icon://filter" tooltip="Filtern"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                
+                <columns>
+                    <Column width="4rem" hAlign="Center"><Text text=""/></Column>
+                    <Column width="30%"><Text text="Name &amp; Position"/></Column>
+                    <Column width="25%" minScreenWidth="Tablet" demandPopin="true"><Text text="Einsatzort / Fahrzeug"/></Column>
+                    <Column width="20%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true"><Text text="Aktueller Status"/></Column>
+                    <Column width="10%" hAlign="End"><Text text=""/></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="TM" backgroundColor="Accent1" displaySize="XS"/>
+                            <ObjectIdentifier title="Thomas Müller" text="Senior Fahrer"/>
+                            <VBox>
+                                <ObjectStatus text="E-Sprinter" icon="sap-icon://electric-vehicle" state="None"/>
+                                <Text text="ID: 8821" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Verfügbar" state="Success" icon="sap-icon://circle-task-2" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://call" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="AS" backgroundColor="Accent5" displaySize="XS"/>
+                            <ObjectIdentifier title="Anna Schmidt" text="Leitung Disposition"/>
+                            <VBox>
+                                <ObjectStatus text="Zentrale Berlin" icon="sap-icon://map-2" state="None"/>
+                                <Text text="Etage 3" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Im Meeting" state="Warning" icon="sap-icon://circle-task-2" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://email" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="LW" backgroundColor="Accent2" displaySize="XS"/>
+                            <ObjectIdentifier title="Lisa Weber" text="Fernkraftfahrer"/>
+                            <VBox>
+                                <ObjectStatus text="Diesel LKW" icon="sap-icon://cargo-train" state="Error"/>
+                                <Text text="ID: 9901" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Im Stau" state="Error" icon="sap-icon://shipping-status" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://map" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="MK" backgroundColor="Accent8" displaySize="XS"/>
+                            <ObjectIdentifier title="Max Klein" text="Stadt-Kurier"/>
+                            <VBox>
+                                <ObjectStatus text="Lastenrad XL" icon="sap-icon://fridge" state="None"/>
+                                <Text text="ID: 5502" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Pause" state="Information" icon="sap-icon://meal" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://call" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="KY" backgroundColor="Accent6" displaySize="XS"/>
+                            <ObjectIdentifier title="Kemal Yilmaz" text="Werkstattleiter"/>
+                            <VBox>
+                                <ObjectStatus text="Werkstatt Nord" icon="sap-icon://wrench" state="None"/>
+                            </VBox>
+                            <ObjectStatus text="Beschäftigt" state="None" icon="sap-icon://circle-task-2" inverted="false"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://call" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="SN" backgroundColor="Accent4" displaySize="XS"/>
+                            <ObjectIdentifier title="Sophie Neumann" text="Fahrerin"/>
+                            <VBox>
+                                <ObjectStatus text="E-Transporter" icon="sap-icon://electric-vehicle" state="Success"/>
+                                <Text text="ID: 3312" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Lädt" state="Information" icon="sap-icon://recharge" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://call" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="DR" backgroundColor="Accent3" displaySize="XS"/>
+                            <ObjectIdentifier title="Dr. David Richter" text="Flottenmanagement"/>
+                            <VBox>
+                                <ObjectStatus text="HQ Hamburg" icon="sap-icon://building" state="None"/>
+                            </VBox>
+                            <ObjectStatus text="Im Urlaub" state="Indication01" icon="sap-icon://flight" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://email" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="TK" backgroundColor="Random" displaySize="XS"/>
+                            <ObjectIdentifier title="Tim Koch" text="Auszubildender"/>
+                            <VBox>
+                                <ObjectStatus text="Rotation" icon="sap-icon://student" state="None"/>
+                                <Text text="Logistik" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Anwesend" state="Success" icon="sap-icon://circle-task-2" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://comment" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="PH" backgroundColor="Accent9" displaySize="XS"/>
+                            <ObjectIdentifier title="Peter Hansen" text="Fahrer (Nachtschicht)"/>
+                            <VBox>
+                                <ObjectStatus text="H2-Truck" icon="sap-icon://energy-saving-lightbulb" state="Warning"/>
+                                <Text text="ID: 7721" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Schläft" state="None" icon="sap-icon://sleep" inverted="false"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://email" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="JB" backgroundColor="Accent10" displaySize="XS"/>
+                            <ObjectIdentifier title="Julia Bergmann" text="Disposition"/>
+                            <VBox>
+                                <ObjectStatus text="Home Office" icon="sap-icon://laptop" state="None"/>
+                            </VBox>
+                            <ObjectStatus text="Online" state="Success" icon="sap-icon://circle-task-2" inverted="true"/>
+                            <HBox justifyContent="End">
+                                <Button icon="sap-icon://call" type="Transparent"/>
+                                <Button icon="sap-icon://video" type="Transparent"/>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                     <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Avatar initials="SJ" backgroundColor="Accent2" displaySize="XS"/>
+                            <ObjectIdentifier title="Sven Jung" text="Fahrer"/>
+                            <VBox>
+                                <ObjectStatus text="Diesel Van" icon="sap-icon://cargo-train" state="Error"/>
+                                <Text text="ID: 1204" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectStatus text="Unterwegs" state="Success" icon="sap-icon://shipping-status" inverted="true"/>
+                            <HBox justifyContent="End"><Button icon="sap-icon://alert" type="Transparent"/></HBox>
+                        </cells>
+                    </ColumnListItem>
+
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

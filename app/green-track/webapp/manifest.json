@@ -49,7 +49,7 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.viz": {} 
+        "sap.viz": {}
       }
     },
     "contentDensities": {
@@ -113,6 +113,27 @@
           "target": [
             "TargetVehicles"
           ]
+        },
+        {
+          "name": "RouteFahrzeuge",
+          "pattern": "fahrzeuge",
+          "target": [
+            "TargetFahrzeuge"
+          ]
+        },
+         {
+          "name": "RouteKontakte",
+          "pattern": "kontakte",
+          "target": [
+            "TargetKontakte"
+          ]
+        },
+        {
+          "name": "RouteRoutenoptimierung",
+          "pattern": "routenoptimierung",
+          "target": [
+            "TargetRoutenoptimierung"
+          ]
         }
       ],
       "targets": {
@@ -131,6 +152,22 @@
           "viewId": "Vehicles",
           "viewType": "XML"
         }
+        },
+        "TargetFahrzeuge": {
+          "viewName": "Fahrzeuge",
+          "viewId": "Fahrzeuge",
+          "viewType": "XML"
+        },
+        "TargetRoutenoptimierung": {
+          "viewName": "Routenoptimierung",
+          "viewId": "Routenoptimierung",
+          "viewType": "XML"
+        },
+         "TargetKontakte": {
+          "viewName": "Kontakte",
+          "viewId": "Kontakte",
+          "viewType": "XML"
+        } 
       }
     },
     "rootView": {
