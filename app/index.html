@@ -27,7 +27,7 @@
                     return Controller.extend("PreviewController", {
                         onInit: function () {
 
-                            const data = {"Services":[]}
+                            const data = {"Services":[{"ServiceName":"greenTrackSrv","DetailsURL":"./service/greenTrack/","Metadata":"./service/greenTrack/$metadata","Entities":[{"Name":"Addresses","URL":"./service/greenTrack/Addresses","FioriURL":"$fiori-preview/greenTrackSrv/Addresses#preview-app"},{"Name":"Drivers","URL":"./service/greenTrack/Drivers","FioriURL":"$fiori-preview/greenTrackSrv/Drivers#preview-app"},{"Name":"Certificates","URL":"./service/greenTrack/Certificates","FioriURL":"$fiori-preview/greenTrackSrv/Certificates#preview-app"},{"Name":"Vehicles","URL":"./service/greenTrack/Vehicles","FioriURL":"$fiori-preview/greenTrackSrv/Vehicles#preview-app"},{"Name":"Products","URL":"./service/greenTrack/Products","FioriURL":"$fiori-preview/greenTrackSrv/Products#preview-app"},{"Name":"OrderItems","URL":"./service/greenTrack/OrderItems","FioriURL":"$fiori-preview/greenTrackSrv/OrderItems#preview-app"},{"Name":"PurchaseOrders","URL":"./service/greenTrack/PurchaseOrders","FioriURL":"$fiori-preview/greenTrackSrv/PurchaseOrders#preview-app"},{"Name":"Customers","URL":"./service/greenTrack/Customers","FioriURL":"$fiori-preview/greenTrackSrv/Customers#preview-app"},{"Name":"VehicleTypes","URL":"./service/greenTrack/VehicleTypes","FioriURL":"$fiori-preview/greenTrackSrv/VehicleTypes#preview-app"},{"Name":"Routes","URL":"./service/greenTrack/Routes","FioriURL":"$fiori-preview/greenTrackSrv/Routes#preview-app"}],"EntitiesCount":10}]}
                             this.getView().setModel(new JSONModel(data));
                         }
                     });

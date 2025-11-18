@@ -1,16 +1,17 @@
 sap.ui.define([
-  "sap/ui/core/mvc/Controller",
-  "sap/ui/core/UIComponent"
-], (BaseController, UIComponent) => {
-  "use strict";
+    "sap/ui/core/UIComponent",
+    "sap/ui/core/mvc/Controller"
+], function (UIComponent, Controller) {
+    "use strict";
 
-  return BaseController.extend("greentrack.controller.App", {
-      onInit() {
-      },
+    return Controller.extend("greentrack.controller.App", {
+        onInit: function () {
+            // Initialization code
+        },
 
-      onNavToDashboard() {
-          const oRouter = UIComponent.getRouterFor(this);
-          oRouter.navTo("Dashboard");
-      }
-  });
+        onNavToDashboard: function () {
+            const oRouter = UIComponent.getRouterFor(this);
+            oRouter.navTo("RouteDashboard"); // Ensure the route name matches the manifest
+        }
+    });
 });

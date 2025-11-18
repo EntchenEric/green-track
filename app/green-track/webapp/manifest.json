@@ -48,7 +48,8 @@
       "minUI5Version": "1.142.1",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.viz": {} 
       }
     },
     "contentDensities": {
@@ -109,12 +110,14 @@
       ],
       "targets": {
         "TargetGreen-Track": {
-          "id": "Green-Track",
-          "name": "Green-Track"
+          "viewName": "Green-Track",
+          "viewId": "Green-Track",
+          "viewType": "XML"
         },
         "TargetDashboard": {
-          "id": "Dashboard",
-          "name": "Dashboard"
+          "viewName": "Dashboard",
+          "viewId": "Dashboard",
+          "viewType": "XML"
         }
       }
     },
