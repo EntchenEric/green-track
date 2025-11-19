@@ -32,37 +32,48 @@
                                 <VBox>
                                     <Label text="Aufträge wählen" design="Bold" class="sapUiTinyMarginBottom"/>
                                     <MultiComboBox 
-                                        id="ordersComboBox"
                                         placeholder="Aufträge selektieren..." 
                                         width="100%"
-                                        selectionChange="onOrdersSelected">
+                                        selectionFinish="onOrdersSelected">
                                         <core:Item key="O1" text="Auftrag #4020 - Innenstadt (5kg)"/>
                                         <core:Item key="O2" text="Auftrag #4021 - Fußgängerzone (12kg)"/>
                                         <core:Item key="O3" text="Auftrag #4055 - Industriegebiet (800kg)"/>
                                         <core:Item key="O4" text="Auftrag #4090 - Vorstadt (Express)"/>
-                                        <core:Item key="O5" text="Auftrag #4102 - Hafen (Gefahrgut)"/>
-                                        <core:Item key="O6" text="Auftrag #4115 - Messegelände (Sperrgut)"/>
                                     </MultiComboBox>
                                 </VBox>
 
-                                <HBox alignItems="End">
-                                    <VBox width="70%" class="sapUiSmallMarginEnd">
+                                <HBox alignItems="End" wrap="Wrap">
+                                    <VBox class="sapUiSmallMarginEnd" justifyContent="End">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
                                         <Label text="Verfügbare Flotte" design="Bold" class="sapUiTinyMarginBottom"/>
                                         <Select width="100%" selectedKey="{view>/config/fleet}">
                                             <core:Item key="mix" text="Auto-Split (LKW + Bikes)"/>
                                             <core:Item key="truck" text="Nur LKW (Konsolidiert)"/>
                                         </Select>
                                     </VBox>
-                                    <Button text="Route berechnen" type="Emphasized" width="30%" icon="sap-icon://search" press="onCalculate"/>
+                                    <Button text="Route berechnen" type="Emphasized" width="180px" icon="sap-icon://search" press="onCalculate">
+                                         <layoutData>
+                                            <FlexItemData growFactor="0" shrinkFactor="0" />
+                                        </layoutData>
+                                    </Button>
                                 </HBox>
                             </layout:Grid>
                         </VBox>
                     </f:content>
                 </f:Card>
 
-                <layout:Grid defaultSpan="L6 M6 S12" hSpacing="2" vSpacing="2">
+                <VBox alignItems="Center" justifyContent="Center" visible="{= !${view>/ui/resultsVisible} }" class="sapUiLargeMarginTop">
+                    <IllustratedMessage 
+                        illustrationType="sapIllus-Spot-NoData" 
+                        title="Keine Route berechnet" 
+                        description="Wählen Sie Aufträge und Flotte aus, um die optimale Route zu finden." />
+                </VBox>
 
-                    <f:Card height="auto" visible="{view>/results/optionA/visible}">
+                <layout:Grid defaultSpan="L6 M6 S12" hSpacing="2" vSpacing="2" visible="{view>/ui/resultsVisible}">
+
+                    <f:Card height="auto">
                         <f:header>
                             <card:Header 
                                 title="Option A: Sammel-Tour" 
@@ -86,12 +97,12 @@
                                             <core:Icon src="sap-icon://shipping-status" class="sapUiMediumMarginEnd" size="1.5rem"/>
                                             <VBox>
                                                 <Title text="Diesel 7.5t LKW" level="H5"/>
-                                                <Label text="Fährt in alle Zonen (inkl. Umweltzone)" size="Small"/>
+                                                <Label text="Fährt in Innenstadt &amp; Industriegebiet" size="Small"/>
                                             </VBox>
                                         </HBox>
                                     </CustomListItem>
                                     <CustomListItem>
-                                        <MessageStrip text="Hohe CO₂-Belastung durch Stop-and-Go." type="Warning" showIcon="true" class="sapUiSmallMarginTop"/>
+                                        <MessageStrip text="LKW muss in Umweltzone einfahren (Hohe Gebühren)." type="Warning" showIcon="true" class="sapUiSmallMarginTop"/>
                                     </CustomListItem>
                                 </List>
                                 
@@ -99,10 +110,6 @@
                                     <HBox justifyContent="SpaceBetween">
                                         <Label text="CO₂-Ausstoß" />
                                         <Text text="{view>/results/optionA/co2}" state="{view>/results/optionA/co2State}"/>
-                                    </HBox>
-                                     <HBox justifyContent="SpaceBetween">
-                                        <Label text="Distanz" />
-                                        <Text text="{view>/results/optionA/distance}" />
                                     </HBox>
                                 </VBox>
 
@@ -145,10 +152,13 @@
                                                 <core:Icon src="sap-icon://bicycle" class="sapUiMediumMarginEnd" color="#2B7D2B" size="1.5rem"/>
                                                 <VBox>
                                                     <Title text="E-Cargo Bike" level="H6"/>
-                                                    <Label text="City-Logistik (Emissionsfrei)" size="Small"/>
+                                                    <Label text="Innenstadt-Route" size="Small"/>
                                                 </VBox>
                                             </HBox>
-                                            <ObjectStatus text="Innenstadt" state="Success" icon="sap-icon://accept"/>
+                                            <VBox alignItems="End">
+                                                <ObjectStatus text="Auftrag #4020" state="Success" icon="sap-icon://accept"/>
+                                                <ObjectStatus text="Auftrag #4021" state="Success" icon="sap-icon://accept"/>
+                                            </VBox>
                                         </HBox>
                                     </CustomListItem>
                                     
@@ -158,10 +168,12 @@
                                                 <core:Icon src="sap-icon://cargo-train" class="sapUiMediumMarginEnd" color="#0050b3" size="1.5rem"/>
                                                 <VBox>
                                                     <Title text="E-Transporter" level="H6"/>
-                                                    <Label text="Schwere Lasten / Außenbezirk" size="Small"/>
+                                                    <Label text="Außenbezirk" size="Small"/>
                                                 </VBox>
                                             </HBox>
-                                            <ObjectStatus text="Industrie" state="Information" icon="sap-icon://accept"/>
+                                            <VBox alignItems="End">
+                                                <ObjectStatus text="Auftrag #4055" state="Information" icon="sap-icon://accept"/>
+                                            </VBox>
                                         </HBox>
                                     </CustomListItem>
 
