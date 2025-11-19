@@ -42,22 +42,36 @@
                                     </MultiComboBox>
                                 </VBox>
 
-                                <HBox alignItems="End">
-                                    <VBox width="70%" class="sapUiSmallMarginEnd">
+                                <HBox alignItems="End" wrap="Wrap">
+                                    <VBox class="sapUiSmallMarginEnd" justifyContent="End">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
                                         <Label text="Verfügbare Flotte" design="Bold" class="sapUiTinyMarginBottom"/>
                                         <Select width="100%" selectedKey="{view>/config/fleet}">
                                             <core:Item key="mix" text="Auto-Split (LKW + Bikes)"/>
                                             <core:Item key="truck" text="Nur LKW (Konsolidiert)"/>
                                         </Select>
                                     </VBox>
-                                    <Button text="Route berechnen" type="Emphasized" width="30%" icon="sap-icon://search" press="onCalculate"/>
+                                    <Button text="Route berechnen" type="Emphasized" width="180px" icon="sap-icon://search" press="onCalculate">
+                                         <layoutData>
+                                            <FlexItemData growFactor="0" shrinkFactor="0" />
+                                        </layoutData>
+                                    </Button>
                                 </HBox>
                             </layout:Grid>
                         </VBox>
                     </f:content>
                 </f:Card>
 
-                <layout:Grid defaultSpan="L6 M6 S12" hSpacing="2" vSpacing="2">
+                <VBox alignItems="Center" justifyContent="Center" visible="{= !${view>/ui/resultsVisible} }" class="sapUiLargeMarginTop">
+                    <IllustratedMessage 
+                        illustrationType="sapIllus-Spot-NoData" 
+                        title="Keine Route berechnet" 
+                        description="Wählen Sie Aufträge und Flotte aus, um die optimale Route zu finden." />
+                </VBox>
+
+                <layout:Grid defaultSpan="L6 M6 S12" hSpacing="2" vSpacing="2" visible="{view>/ui/resultsVisible}">
 
                     <f:Card height="auto">
                         <f:header>

@@ -2,8 +2,10 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/BusyIndicator",
-    "sap/m/MessageToast"
-], function (Controller, JSONModel, BusyIndicator, MessageToast) {
+    "sap/m/MessageToast",
+    "sap/ui/core/routing/History",
+    "sap/ui/core/UIComponent"
+], function (Controller, JSONModel, BusyIndicator, MessageToast, History, UIComponent) {
     "use strict";
 
     return Controller.extend("greentrack.controller.Routenoptimierung", {
@@ -14,6 +16,9 @@ sap.ui.define([
                 config: {
                     fleet: "mix", // Default selection
                     startPoint: "Berlin, Logistikzentrum Süd"
+                },
+                ui: {
+                    resultsVisible: false // Controls Empty State vs Results
                 },
                 results: {
                     // OPTION A (The LKW)
@@ -40,7 +45,13 @@ sap.ui.define([
         },
 
         onNavBack: function () {
-            // Your router nav back logic
+            const sPreviousHash = History.getInstance().getPreviousHash();
+            if (sPreviousHash !== undefined) {
+                window.history.go(-1);
+            } else {
+                const oRouter = UIComponent.getRouterFor(this);
+                oRouter.navTo("RouteDashboard", {}, true);
+            }
         },
 
         // Triggered when the "Calculate" button is pressed
@@ -54,6 +65,9 @@ sap.ui.define([
             setTimeout(function () {
                 BusyIndicator.hide();
                 MessageToast.show("Route neu berechnet.");
+                
+                // Show results, hide empty state
+                oModel.setProperty("/ui/resultsVisible", true);
 
                 // 2. CHANGE THE DATA based on the Dropdown selection
                 if (sFleet === "mix") {
@@ -86,7 +100,8 @@ sap.ui.define([
         onOrdersSelected: function(oEvent) {
             // Optional: Update cost slightly when adding items
             var iCount = oEvent.getParameter("selectedItems").length;
-            MessageToast.show(iCount + " Aufträge ausgewählt");
+            // Just a visual feedback
+             MessageToast.show(iCount + " Aufträge ausgewählt");
         }
     });
 });

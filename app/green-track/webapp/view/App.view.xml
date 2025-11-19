@@ -10,9 +10,9 @@
 
         <tnt:header>
             <tnt:ToolHeader>
-                <Button icon="sap-icon://menu2" type="Transparent" press="onSideNavButtonPress" tooltip="Menu auf/zuklappen"/>
-                <Image src="./path/to/logo.png" height="30px" densityAware="false" />
-                <Title level="H1" text="Green-Track Dashboard" wrapping="false">
+                <Button icon="sap-icon://menu2" type="Transparent" press="onSideNavButtonPress" tooltip="Menu"/>
+                <Image src="assets/SAP_R_grad.svg" height="24px" densityAware="false" class="sapUiSmallMarginBegin" />
+                <Title level="H1" text="GreenTrack" wrapping="false" class="sapUiTinyMarginBegin">
                     <layoutData>
                         <OverflowToolbarLayoutData priority="Disappear"/>
                     </layoutData>
@@ -21,25 +21,26 @@
                 <Button icon="sap-icon://search" type="Transparent" tooltip="Suche" />
                 <Button icon="sap-icon://bell" type="Transparent" tooltip="Benachrichtigungen" press="onNotificationPress" id="notificationButton">
                     <customData>
-                        <BadgeCustomData key="badge" value="3" visible="true"/>
+                        <BadgeCustomData key="badge" value="2" visible="true"/>
                     </customData>
                 </Button>
-                <Avatar initials="GT" displaySize="XS" press="onUserPress" backgroundColor="Accent6"/>
+                <Avatar initials="GT" displaySize="XS" press="onUserPress" backgroundColor="Accent6" class="sapUiTinyMarginEnd"/>
             </tnt:ToolHeader>
         </tnt:header>
 
         <tnt:sideContent>
-            <tnt:SideNavigation id="sideNavigation" selectedKey="dashboard">
+            <tnt:SideNavigation id="sideNavigation" selectedKey="home">
                 <tnt:NavigationList>
-                    <tnt:NavigationListItem icon="sap-icon://bbyd-dashboard" text="Dashboard" key="dashboard" press="onNavToDashboard"/>
+                    <tnt:NavigationListItem icon="sap-icon://home" text="Home" key="home" press=".onNavToHome"/>
+                    <tnt:NavigationListItem icon="sap-icon://bbyd-dashboard" text="Dashboard" key="dashboard" press=".onNavToDashboard"/>
                     
                     <tnt:NavigationListItem text="Logistik" icon="sap-icon://shipping-status" expanded="true">
-                        <tnt:NavigationListItem text="Fahrzeuge" key="vehicles" press="onNavToFahrzeuge" />
-                        <tnt:NavigationListItem text="Routenoptimierung" key="routes" press="onNavToRoutenoptimierung"/>
+                        <tnt:NavigationListItem text="Fahrzeuge" key="vehicles" press=".onNavToFahrzeuge" />
+                        <tnt:NavigationListItem text="Routenoptimierung" key="routes" press=".onNavToRoutenoptimierung"/>
                     </tnt:NavigationListItem>
 
                     <tnt:NavigationListItem text="Verwaltung" icon="sap-icon://building">
-                        <tnt:NavigationListItem text="Kontakte" key="contacts" press="onNavToKontakte" />
+                        <tnt:NavigationListItem text="Kontakte" key="contacts" press=".onNavToKontakte" />
                     </tnt:NavigationListItem>
                 </tnt:NavigationList>
             </tnt:SideNavigation>

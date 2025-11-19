@@ -49,6 +49,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
+        "sap.tnt": {},
+        "sap.f": {},
         "sap.viz": {}
       }
     },
@@ -95,7 +97,7 @@
       "routes": [
         {
           "name": "RouteGreen-Track",
-          "pattern": "greenTrack",
+          "pattern": "",
           "target": [
             "TargetGreen-Track"
           ]
