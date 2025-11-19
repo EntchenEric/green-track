@@ -1,28 +1,36 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/UIComponent"
-], (Controller, UIComponent) => {
+], function (Controller, UIComponent) {
     "use strict";
 
     return Controller.extend("greentrack.controller.Green-Track", {
-        onInit() {
-            // Use the dashboard model from the owner component/view if available, 
-            // or let it inherit from the parent view (App.view.xml) which sets the 'dashboard' model.
+        onInit: function () {
+            // Controller initialization logic
         },
 
+        /**
+         * Navigation handlers for the tiles
+         */
         onNavToDashboard: function () {
-            const oRouter = UIComponent.getRouterFor(this);
-            oRouter.navTo("RouteDashboard");
+            this.getRouter().navTo("RouteDashboard");
         },
 
         onNavToFahrzeuge: function () {
-            const oRouter = UIComponent.getRouterFor(this);
-            oRouter.navTo("RouteFahrzeuge");
+            this.getRouter().navTo("RouteFahrzeuge"); // Achte auf konsistente Benennung in manifest.json
         },
 
         onNavToRoutenoptimierung: function () {
-            const oRouter = UIComponent.getRouterFor(this);
-            oRouter.navTo("RouteRoutenoptimierung");
+            this.getRouter().navTo("RouteRoutenoptimierung");
+        },
+
+        onNavToKontakte: function () {
+            this.getRouter().navTo("RouteKontakte");
+        },
+
+        // Helper to access the router easily
+        getRouter: function () {
+            return UIComponent.getRouterFor(this);
         }
     });
 });

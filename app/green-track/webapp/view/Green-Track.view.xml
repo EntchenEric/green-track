@@ -1,37 +1,93 @@
-<mvc:View 
+<mvc:View
     controllerName="greentrack.controller.Green-Track"
     xmlns:mvc="sap.ui.core.mvc"
-	xmlns:tnt="sap.tnt"
-    xmlns="sap.m">
-    <Page id="page" title="Homepage">
-    <Text text="test"/>
-    <tnt:NavigationList
-		id="navigationList"
-		width="320px"
-		selectedKey="subItem3">
-		<tnt:NavigationListItem text="Item 1" key="rootItem1" icon="sap-icon://employee">
-			<!-- <tnt:NavigationListItem text="Go to Dashboard" press="onNavToDashboard" /> -->
-			<tnt:NavigationListItem text="Fahrzeuge" />
-			<tnt:NavigationListItem text="Routen optimierung" id="subItemThree" key="subItem3" />
-			<tnt:NavigationListItem text="Sub Item 4" />
-			<tnt:NavigationListItem text="Invisible Sub Item 5" visible="false" />
-			<tnt:NavigationListItem text="Invisible Sub Item 6" visible="false" />
-		</tnt:NavigationListItem>
-		<tnt:NavigationListItem
-			text="Invisible Section"
-			icon="sap-icon://employee"
-			visible="false">
-			<tnt:NavigationListItem text="Sub Item 1" />
-			<tnt:NavigationListItem text="Sub Item 2" />
-			<tnt:NavigationListItem text="Sub Item 3" />
-			<tnt:NavigationListItem text="Sub Item 4" />
-		</tnt:NavigationListItem>
-		<tnt:NavigationListItem text="Impressum" icon="sap-icon://building">
-			<tnt:NavigationListItem text="Kontakte" />
-			<tnt:NavigationListItem text="Sub Item 2" />
-			<tnt:NavigationListItem text="Sub Item 3" />
-			<tnt:NavigationListItem text="Sub Item 4" />
-		</tnt:NavigationListItem>
-	</tnt:NavigationList>
-    </Page>
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    displayBlock="true">
+
+    <f:DynamicPage id="dynamicPage" toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="GreenTrack Logistics" />
+                </f:heading>
+                <f:expandedContent>
+                    <Label text="Nachhaltiges Flottenmanagement &amp; Routenoptimierung" />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="GreenTrack Home" />
+                </f:snappedContent>
+                <f:content>
+                    <OverflowToolbar>
+                        <GenericTag text="Status" status="Success" design="StatusIconHidden">
+                            <ObjectNumber number="System Online" state="Success" />
+                        </GenericTag>
+                    </OverflowToolbar>
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:content>
+            <VBox class="sapUiLargeMargin">
+                
+                <f:Card class="sapUiMediumMarginBottom">
+                    <f:header>
+                        <card:Header title="Willkommen im GreenTrack Hub" subtitle="Übersicht" iconSrc="sap-icon://home" />
+                    </f:header>
+                    <f:content>
+                        <HBox class="sapUiSmallMargin" alignItems="Center" justifyContent="SpaceBetween">
+                            <VBox width="70%">
+                                <Title text="Starten Sie Ihre Mission" level="H3" class="sapUiTinyMarginBottom"/>
+                                <Text text="Verwalten Sie Ihre Flotte effizient, reduzieren Sie CO₂-Emissionen und optimieren Sie Ihre Routenplanung mit intelligenten Insights." class="sapUiSmallMarginBottom"/>
+                                <Button text="Zum Dashboard" type="Emphasized" press=".onNavToDashboard" icon="sap-icon://bbyd-dashboard" class="sapUiMediumMarginTop"/>
+                            </VBox>
+                            <core:Icon src="sap-icon://world" size="6rem" color="#2B7D2B" class="sapUiLargeMarginEnd"/>
+                        </HBox>
+                    </f:content>
+                </f:Card>
+
+                <Title text="Schnellzugriff" titleStyle="H4" class="sapUiSmallMarginBottom"/>
+                <layout:Grid defaultSpan="L3 M6 S12" hSpacing="1" vSpacing="1">
+                    
+                    <GenericTile header="Executive Dashboard" subheader="Live-Daten &amp; KPIs" press=".onNavToDashboard" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
+                        <TileContent>
+                            <ImageContent src="sap-icon://bbyd-dashboard"/>
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile header="Fahrzeugflotte" subheader="Verwaltung &amp; Status" press=".onNavToFahrzeuge" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
+                        <TileContent>
+                            <ImageContent src="sap-icon://shipping-status"/>
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile header="Routenoptimierung" subheader="Planung &amp; CO₂-Split" press=".onNavToRoutenoptimierung" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
+                        <TileContent>
+                            <ImageContent src="sap-icon://map"/>
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile header="Mitarbeiter" subheader="Fahrer &amp; Team" press=".onNavToKontakte" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
+                        <TileContent>
+                            <ImageContent src="sap-icon://group"/>
+                        </TileContent>
+                    </GenericTile>
+
+                </layout:Grid>
+
+                <f:Card class="sapUiMediumMarginTop">
+                    <f:content>
+                         <List headerText="System-Benachrichtigungen" inset="false">
+                            <StandardListItem title="CO₂-Reporting verfügbar" description="Der Monatsbericht für Oktober steht bereit." icon="sap-icon://pdf-attachment" info="Neu" infoState="Success"/>
+                            <StandardListItem title="Wartung eingeplant" description="Fahrzeug M-GT 103 benötigt Service." icon="sap-icon://tool" info="Dringend" infoState="Warning"/>
+                        </List>
+                    </f:content>
+                 </f:Card>
+
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
