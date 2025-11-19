@@ -1,4 +1,5 @@
-<mvc:View controllerName="greentrack.controller.Green-Track"
+<mvc:View 
+    controllerName="greentrack.controller.Green-Track"
     xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt"
     xmlns="sap.m">
